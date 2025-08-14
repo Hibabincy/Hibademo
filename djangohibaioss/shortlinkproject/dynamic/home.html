@@ -1,0 +1,100 @@
+{% load static %}
+<html>
+<head>
+<title>URL Shortener</title>
+<link rel="icon" href="{% static 'images/favicon.png' %}" type="image/gif">
+<meta name="author" content="Suram ShivaReddy" />
+<meta name="keywords" content="ShivaReddy, Suram ShivaReddy, Suram Shiva, Shiva R'dy" />
+<meta name="description" content="Shorten your URLs instantly and share them with ease." />
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+.hero {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+  position: relative;
+}
+.hero:before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background: rgba(76,56,75,.8);
+}
+.hero__content {
+  z-index: 2;
+  position: relative;
+  padding: 200px 50px;
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+  color: white;
+}
+.hero__content h1 {
+  font-size: 50px;
+  font-weight: 100;
+  margin: 0;
+}
+.hero__content h3 {
+  font-weight: 300;
+}
+.btn {
+  background: #4CAF50;
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  margin-top: 20px;
+  display: inline-block;
+  border-radius: 5px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+.btn:hover {
+  background: #45a049;
+}
+.result-box {
+  margin-top: 20px;
+  background: #fff;
+  color: #333;
+  padding: 10px;
+  border-radius: 5px;
+  display: inline-block;
+  min-width: 300px;
+  font-size: 16px;
+}
+.result-box a {
+  color: #007bff;
+  text-decoration: none;
+}
+.result-box a:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+<body>
+<div class="hero" style="background-image: url('https://ununsplash.imgix.net/photo-1416339134316-0e91dc9ded92?q=75&fm=jpg&s=883a422e10fc4149893984019f63c818')">
+  <div class="hero__content">
+    <h1>"One click, one short link, endless possibilities." </h1>
+   <h3>Change Your URL here</h3>
+    <form method="POST" action="{% url 'home' %}">
+      {% csrf_token %}
+      <input type="url" name="original_url" placeholder="Enter your URL" required style="padding:10px; width:70%; border-radius:5px; border:none;">
+      <button type="submit" class="btn">Shorten</button>
+    </form>
+
+    {% if short_url %}
+      <div class="result-box">
+        Shortened URL: <a href="{{ short_url }}" target="_blank">{{ short_url }}</a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+</body>
+</html>
